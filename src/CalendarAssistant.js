@@ -369,7 +369,7 @@ const CalendarAssistant = () => {
   };
 
   return (
-    <div className="max-w-4xl mx-auto bg-white rounded-lg shadow-lg h-screen flex flex-col">
+    <div className="max-w-4xl mx-auto bg-gray-800 rounded-lg shadow-lg h-screen flex flex-col">
       {/* Header */}
       <div className="bg-blue-600 text-white p-4 rounded-t-lg">
         <div className="flex items-center justify-between">
@@ -402,16 +402,16 @@ const CalendarAssistant = () => {
 
       {/* Calendar Preview */}
       {isAuthenticated && calendarEvents.length > 0 && (
-        <div className="bg-gray-50 p-3 border-b">
-          <div className="flex items-center space-x-4 text-sm">
+        <div className="bg-gray-700 p-3 border-b border-gray-600">
+          <div className="flex items-center space-x-4 text-sm text-white">
             <div className="flex items-center space-x-1">
-              <Clock className="w-4 h-4 text-blue-600" />
+              <Clock className="w-4 h-4 text-blue-400" />
               <span className="font-medium">Upcoming:</span>
             </div>
             {calendarEvents.slice(0, 2).map((event, index) => {
               const start = new Date(event.start.dateTime || event.start.date);
               return (
-                <div key={index} className="bg-white px-2 py-1 rounded text-xs">
+                <div key={index} className="bg-gray-600 px-2 py-1 rounded text-xs text-white">
                   {event.summary} • {start.toLocaleTimeString('en-US', { 
                     hour: 'numeric', 
                     minute: '2-digit', 
@@ -436,20 +436,20 @@ const CalendarAssistant = () => {
                 message.type === 'user'
                   ? 'bg-blue-600 text-white'
                   : message.content === '...'
-                  ? 'bg-gray-200 text-gray-600'
-                  : 'bg-gray-100 text-gray-800'
+                  ? 'bg-gray-600 text-gray-300'
+                  : 'bg-gray-700 text-white'
               }`}
             >
               <div className="flex items-start space-x-2">
                 {message.type === 'assistant' && message.content !== '...' && (
-                  <MessageCircle className="w-4 h-4 mt-0.5 flex-shrink-0" />
+                  <MessageCircle className="w-4 h-4 mt-0.5 flex-shrink-0 text-blue-400" />
                 )}
                 <p className="text-sm whitespace-pre-line">
                   {message.content === '...' ? (
                     <span className="flex space-x-1">
-                      <span className="w-1 h-1 bg-gray-500 rounded-full animate-bounce"></span>
-                      <span className="w-1 h-1 bg-gray-500 rounded-full animate-bounce" style={{animationDelay: '0.1s'}}></span>
-                      <span className="w-1 h-1 bg-gray-500 rounded-full animate-bounce" style={{animationDelay: '0.2s'}}></span>
+                      <span className="w-1 h-1 bg-gray-400 rounded-full animate-bounce"></span>
+                      <span className="w-1 h-1 bg-gray-400 rounded-full animate-bounce" style={{animationDelay: '0.1s'}}></span>
+                      <span className="w-1 h-1 bg-gray-400 rounded-full animate-bounce" style={{animationDelay: '0.2s'}}></span>
                     </span>
                   ) : message.content}
                 </p>
@@ -461,14 +461,14 @@ const CalendarAssistant = () => {
       </div>
 
       {/* Input */}
-      <div className="p-4 border-t">
+      <div className="p-4 border-t border-gray-600">
         <div className="flex space-x-2">
           <button
             onClick={handleVoiceInput}
             className={`p-2 rounded-full transition-colors ${
               isListening 
                 ? 'bg-red-100 text-red-600' 
-                : 'bg-gray-100 hover:bg-gray-200 text-gray-600'
+                : 'bg-gray-700 hover:bg-gray-600 text-gray-300'
             }`}
           >
             {isListening ? <MicOff className="w-5 h-5" /> : <Mic className="w-5 h-5" />}
@@ -479,7 +479,7 @@ const CalendarAssistant = () => {
             onChange={(e) => setInputText(e.target.value)}
             onKeyPress={(e) => e.key === 'Enter' && handleSubmit()}
             placeholder="Tell me about yourself and how you work best..."
-            className="flex-1 px-3 py-2 border rounded-lg focus:outline-none focus:border-blue-500"
+            className="flex-1 px-3 py-2 border border-gray-600 rounded-lg focus:outline-none focus:border-blue-500 bg-gray-700 text-white placeholder-gray-400"
             disabled={isLoading}
           />
           <button
@@ -491,8 +491,8 @@ const CalendarAssistant = () => {
           </button>
         </div>
         {isListening && (
-          <div className="text-xs text-red-600 mt-1 flex items-center">
-            <div className="w-2 h-2 bg-red-600 rounded-full animate-pulse mr-2"></div>
+          <div className="text-xs text-red-400 mt-1 flex items-center">
+            <div className="w-2 h-2 bg-red-400 rounded-full animate-pulse mr-2"></div>
             Listening... Speak now
           </div>
         )}
